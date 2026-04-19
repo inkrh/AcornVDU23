@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VDU Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel hero-panel">
+      <p class="eyebrow">8x8 Character Designer</p>
+      <h1>VDU Editor</h1>
+      <p class="intro">
+        Build an Acorn-style VDU character definition using the same bit ordering as the Acorn Electron/BBC/Archimedes.
+        Column 0 maps to bit 7, and column 7 maps to bit 0.
+      </p>
+    </section>
+
+    <section class="panel id-panel id-bar">
+        
+        <label class="field">
+          <span>Character ID</span>
+          <input id="character-id" type="number" min="0" max="255" step="1" value="0" inputmode="numeric">
+        </label>
+
+        <div class="stat-card">
+          <span class="stat-label">Hex ID</span>
+          <strong id="hex-id">&amp;00</strong>
+        </div>
+      
+    </section>
+    <section class="workspace-grid">
+      <section class="panel">
+        <div class="section-heading">
+          <h2>Grid Editor</h2>
+          <div class="button-row compact-row">
+            <button id="save-current" class="ghost-button" type="button">Save Current</button>
+            <button id="clear-grid" class="ghost-button" type="button">Clear</button>
+          </div>
+        </div>
+        <div id="grid-editor" class="grid-editor" aria-label="8 by 8 pixel editor"></div>
+      </section>
+
+      <section class="panel panel-stack">
+        <div>
+          <div class="section-heading">
+            <h2>Import</h2>
+            <span id="import-status" class="microcopy">Paste VDU lines or upload a text file</span>
+          </div>
+          <div class="input-stack">
+            <label class="output-block">
+              <span>VDU Text</span>
+              <textarea id="import-text" placeholder="VDU(23,224,24,60,126,219,126,36,66,129)"></textarea>
+            </label>
+              <div class="button-row">
+              <button id="import-lines" class="ghost-button" type="button">Import Lines</button>
+              <button id="new-character" class="ghost-button" type="button">New Blank</button>
+            </div>
+
+            <div class="button-row">
+              <label class="file-picker" for="import-file">Import Txt</label>
+              <input id="import-file" type="file" accept=".txt,text/plain">
+              </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-heading">
+            <h2>Row Sums</h2>
+            <span class="microcopy">Decimal and hex bytes</span>
+          </div>
+          <div id="row-summaries" class="row-summaries"></div>
+        </div>
+
+        <div>
+          <div class="section-heading">
+            <h2>Output</h2>
+            <div class="button-row compact-row">
+              <button id="copy-output" class="ghost-button" type="button">Copy Hex</button>
+              <!-- <button id="download-export" class="ghost-button" type="button">Download Set</button> -->
+            </div>
+          </div>
+          <div class="output-stack">
+            <label class="output-block">
+              <span>Decimal</span>
+              <textarea id="output-decimal" readonly></textarea>
+            </label>
+            <label class="output-block">
+              <span>Hex</span>
+              <textarea id="output-hex" readonly></textarea>
+            </label>
+            <label class="output-block">
+              <span>Export Set</span>
+              <textarea id="output-export" readonly></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel preview-panel">
+        <div class="section-heading">
+          <h2>Sprite Preview</h2>
+          <span class="microcopy">Live 8x8 bitmap and saved IDs</span>
+        </div>
+        <div class="preview-stack">
+          <div id="sprite-preview" class="sprite-preview" aria-label="Sprite preview"></div>
+          <button id="download-export" class="ghost-button" type="button">Download Set</button>
+          <div>
+            <div class="section-heading subheading">
+              <h2>Saved By ID</h2>
+              <span id="library-count" class="microcopy">0 saved</span>
+            </div>
+            <div id="character-list" class="character-list" aria-label="Imported character list"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./index.js"></script>
+</body>
+</html>
